@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span>Memories</span>
+        <button class="btn btn-primary float-right jh-create-entity create-memory" [routerLink]="['/', { outlets: { popup: ['memory-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Memory
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="memories">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Title</span></th>
+            <th><span>Description</span></th>
+            <th><span>Start Date</span></th>
+            <th><span>End Date</span></th>
+            <th><span>Longitude</span></th>
+            <th><span>Latitude</span></th>
+            <th><span>User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let memory of memories ;trackBy: trackId">
+                <td><a [routerLink]="['../memory', memory.id ]">{{memory.id}}</a></td>
+                <td>{{memory.title}}</td>
+                <td>{{memory.description}}</td>
+                <td>{{memory.startDate | date:'medium'}}</td>
+                <td>{{memory.endDate | date:'medium'}}</td>
+                <td>{{memory.longitude}}</td>
+                <td>{{memory.latitude}}</td>
+                <td>
+                    {{memory.user?.login}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../memory', memory.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'memory/'+ memory.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'memory/'+ memory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

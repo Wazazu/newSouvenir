@@ -45,6 +45,9 @@ public class CacheConfiguration {
             cm.createCache(com.miage.souvenir.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.miage.souvenir.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.miage.souvenir.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.miage.souvenir.domain.Photo.class.getName(), jcacheConfiguration);
+            cm.createCache(com.miage.souvenir.domain.Memory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.miage.souvenir.domain.Memory.class.getName() + ".photos", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

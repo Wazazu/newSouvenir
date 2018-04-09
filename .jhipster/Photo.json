@@ -1,0 +1,20 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "path",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180409124206",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "photo",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
