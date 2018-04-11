@@ -10,12 +10,14 @@ export class ClickMarkerModalService {
         private modalService: NgbModal,
     ) {}
 
-    open(): NgbModalRef {
+    open(titre:string, description:string): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
         const modalRef = this.modalService.open(ModalClickMarkerComponent);
+        modalRef.componentInstance.titre = titre;
+        modalRef.componentInstance.description = description;
         modalRef.result.then((result) => {
             this.isOpen = false;
         }, (reason) => {

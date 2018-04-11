@@ -8,6 +8,7 @@ import { MapService } from './map.service';
 import { Principal } from '../../shared';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClickMarkerModalService} from '../../modal-click-marker/modal-click-marker.service';
+
 @Component({
     selector: 'jhi-map',
     templateUrl: './map.component.html',
@@ -20,8 +21,6 @@ maps: Map[];
     lat:number = 51.678418;
     lng:number = 7.809007;
     zoom:number = 8;
-    titre:string;
-    description:string;
     modalRef: NgbModalRef;
     constructor(
         private modalClickMarker:ClickMarkerModalService,
@@ -62,8 +61,9 @@ maps: Map[];
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
-    clickedMarker(label: string, index: number) {
-     this.modalRef = this.modalClickMarker.open();
+  
+    clickedMarker(titre: string, description: string) {
+     this.modalRef = this.modalClickMarker.open(titre, description);
   }
   
   mapClicked($event: MouseEvent) {
@@ -71,8 +71,8 @@ maps: Map[];
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true,
-      titre:'titre'+this.markers.length,
-      description:'description'+this.markers.length
+      titre:'titre'+ this.markers.length,
+      description:'description'+ this.markers.length
     });
   }
   

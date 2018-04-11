@@ -8,18 +8,12 @@
 
   <agm-marker 
       *ngFor="let m of markers; let i = index"
-      (markerClick)="clickedMarker(m.label, i)"
+      (markerClick)="clickedMarker(m.titre, m.description)"
       [latitude]="m.lat"
       [longitude]="m.lng"
       [label]="m.label"
       [markerDraggable]="m.draggable"
       (dragEnd)="markerDragEnd(m, $event)">
-      
-      <modal-click-marker
-      	[titre]="m.titre"
-      	[description]="m.description"
-      ></modal-click-marker>
-    
   </agm-marker>
-
+  
 </agm-map>
