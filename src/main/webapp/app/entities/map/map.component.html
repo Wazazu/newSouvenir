@@ -15,17 +15,11 @@
       [markerDraggable]="m.draggable"
       (dragEnd)="markerDragEnd(m, $event)">
       
-    <agm-info-window>
-      <strong>InfoWindow content</strong>
-    </agm-info-window>
+      <modal-click-marker
+      	[titre]="m.titre"
+      	[description]="m.description"
+      ></modal-click-marker>
     
   </agm-marker>
-  
-  <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
-      [radius]="5000"
-      [fillColor]="'red'"
-      [circleDraggable]="true"
-      [editable]="true">
-  </agm-circle>
 
 </agm-map>

@@ -6,7 +6,8 @@ import { MouseEvent } from '@agm/core';
 import { Map } from './map.model';
 import { MapService } from './map.service';
 import { Principal } from '../../shared';
-
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ClickMarkerModalService} from '../../modal-click-marker/modal-click-marker.service';
 @Component({
     selector: 'jhi-map',
     templateUrl: './map.component.html',
@@ -18,8 +19,12 @@ maps: Map[];
     eventSubscriber: Subscription;
     lat:number = 51.678418;
     lng:number = 7.809007;
-    zoom: number = 8;
+    zoom:number = 8;
+    titre:string;
+    description:string;
+    modalRef: NgbModalRef;
     constructor(
+        private modalClickMarker:ClickMarkerModalService,
         private mapService: MapService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
@@ -58,39 +63,46 @@ maps: Map[];
         this.jhiAlertService.error(error.message, null, null);
     }
     clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+     this.modalRef = this.modalClickMarker.open();
   }
   
   mapClicked($event: MouseEvent) {
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
-      draggable: true
+      draggable: true,
+      titre:'titre'+this.markers.length,
+      description:'description'+this.markers.length
     });
   }
   
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
-  
   markers: marker[] = [
     {
       lat: 51.673858,
       lng: 7.815982,
       label: 'A',
-      draggable: true
+      draggable: true,
+      titre:'titre1',
+      description :'description1',
     },
     {
       lat: 51.373858,
       lng: 7.215982,
       label: 'B',
-      draggable: false
+      draggable: false,
+      titre:'titre2',
+      description :'description2',
     },
     {
       lat: 51.723858,
       lng: 7.895982,
       label: 'C',
-      draggable: true
+      draggable: true,
+      titre: 'titre3',
+      description : 'description3',
     }
   ]
 }
@@ -101,6 +113,7 @@ interface marker {
   lng: number;
   label?: string;
   draggable: boolean;
+  titre: string;
+  description: string;
 }
-  
 

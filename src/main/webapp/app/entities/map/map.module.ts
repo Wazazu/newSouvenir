@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MapComponent } from './map.component';
 import { AgmCoreModule } from '@agm/core';
 import { SouvenirSharedModule } from '../../shared';
+import { ModalClickMarkerComponent } from '../../modal-click-marker/modal-click-marker.component';
 import {
     MapService,
     MapPopupService,
@@ -49,6 +50,7 @@ const ENTITY_STATES = [
         MapPopupComponent,
         MapDeleteDialogComponent,
         MapDeletePopupComponent,
+        ModalClickMarkerComponent,
     ],
     providers: [
         MapService,

@@ -17,6 +17,7 @@ import { SouvenirAdminModule } from './admin/admin.module';
 import { SouvenirAccountModule } from './account/account.module';
 import { SouvenirEntityModule } from './entities/entity.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
+import { ClickMarkerModalService } from './modal-click-marker/modal-click-marker.service';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
     JhiMainComponent,
@@ -26,6 +27,7 @@ import {
     PageRibbonComponent,
     ErrorComponent
 } from './layouts';
+import { ModalClickMarkerComponent } from './modal-click-marker/modal-click-marker.component';
 
 @NgModule({
     imports: [
@@ -44,9 +46,11 @@ import {
         NavbarComponent,
         ErrorComponent,
         PageRibbonComponent,
-        FooterComponent
+        FooterComponent,
+        ModalClickMarkerComponent
     ],
     providers: [
+        ClickMarkerModalService,
         ProfileService,
         PaginationConfig,
         UserRouteAccessService,
