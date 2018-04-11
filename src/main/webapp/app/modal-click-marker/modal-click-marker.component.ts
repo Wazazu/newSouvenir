@@ -1,5 +1,5 @@
-import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'modal-click-marker',
@@ -7,12 +7,15 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styles: []
 })
 export class ModalClickMarkerComponent implements OnInit {
-  @Input()titre:string;
-  @Input()description:string;
 
-  constructor(public activeModal: NgbActiveModal) { }
+  titre:string;
+  description:string;
+
+  constructor(public activeModal: NgbActiveModal, private router: Router) { }
   ngOnInit() {
-    console.log("titre " + this.titre);
-    console.log("description " + this.description);
+  }
+  consulterSouvenir(){
+    this.activeModal.close();
+    this.router.navigate(['/memory']);
   }
 }

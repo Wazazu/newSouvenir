@@ -10,6 +10,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClickMarkerModalService} from '../../modal-click-marker/modal-click-marker.service';
 import { Memory } from '../memory';
 import { MemoryService } from '../memory/memory.service';
+
 @Component({
     selector: 'jhi-map',
     templateUrl: './map.component.html',
@@ -23,8 +24,6 @@ export class MapComponent implements OnInit, OnDestroy {
     lat:number = 51.678418;
     lng:number = 7.809007;
     zoom:number = 8;
-    titre:string;
-    description:string;
     modalRef: NgbModalRef;
     constructor(
         private memoryS:MemoryService,
@@ -75,8 +74,9 @@ export class MapComponent implements OnInit, OnDestroy {
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
-    clickedMarker(label: string, index: number) {
-     this.modalRef = this.modalClickMarker.open();
+  
+    clickedMarker(titre: string, description: string) {
+     this.modalRef = this.modalClickMarker.open(titre, description);
   }
   
   mapClicked($event: MouseEvent) {
@@ -84,8 +84,8 @@ export class MapComponent implements OnInit, OnDestroy {
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true,
-      titre:'titre'+this.markers.length,
-      description:'description'+this.markers.length
+      titre:'titre'+ this.markers.length,
+      description:'description'+ this.markers.length
     });
   }
   
