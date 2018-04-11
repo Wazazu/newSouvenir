@@ -2,12 +2,17 @@ package com.miage.souvenir.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.miage.souvenir.domain.Memory;
+import com.miage.souvenir.domain.User;
+import com.miage.souvenir.repository.MemoryRepository;
+import com.miage.souvenir.repository.UserRepository;
+import com.miage.souvenir.security.SecurityUtils;
 import com.miage.souvenir.service.MemoryService;
 import com.miage.souvenir.web.rest.errors.BadRequestAlertException;
 import com.miage.souvenir.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +35,13 @@ public class MemoryResource {
     private static final String ENTITY_NAME = "memory";
 
     private final MemoryService memoryService;
+    
+    @Autowired
+    private MemoryRepository memoryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+    
     public MemoryResource(MemoryService memoryService) {
         this.memoryService = memoryService;
     }
@@ -49,6 +60,9 @@ public class MemoryResource {
         if (memory.getId() != null) {
             throw new BadRequestAlertException("A new memory cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userRepository.findOneByLogin(userLogin.get());
+        memory.setUser(user.get());
         Memory result = memoryService.save(memory);
         return ResponseEntity.created(new URI("/api/memories/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -86,7 +100,9 @@ public class MemoryResource {
     @Timed
     public List<Memory> getAllMemories() {
         log.debug("REST request to get all Memories");
-        return memoryService.findAll();
+        Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userRepository.findOneByLogin(userLogin.get());
+        return memoryRepository.findByUser(user.get());
         }
 
     /**
