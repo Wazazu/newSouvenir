@@ -1,6 +1,9 @@
 package com.miage.souvenir.repository;
 
+import com.google.common.base.Optional;
 import com.miage.souvenir.domain.Memory;
+import com.miage.souvenir.domain.User;
+
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -16,4 +19,6 @@ public interface MemoryRepository extends JpaRepository<Memory, Long> {
     @Query("select memory from Memory memory where memory.user.login = ?#{principal.username}")
     List<Memory> findByUserIsCurrentUser();
 
+    
+    List<Memory> findByUser(User user);
 }
