@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MapComponent } from './map.component';
 import { AgmCoreModule } from '@agm/core';
@@ -30,6 +31,7 @@ const ENTITY_STATES = [
         RouterModule.forChild(ENTITY_STATES),
         BrowserModule,
         FormsModule,
+        HttpClientModule,
         AgmCoreModule.forRoot({
       // please get your own API key here:
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en

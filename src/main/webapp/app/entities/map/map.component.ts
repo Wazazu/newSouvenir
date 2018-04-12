@@ -8,22 +8,25 @@ import { MapService } from './map.service';
 import { Principal } from '../../shared';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClickMarkerModalService} from '../../modal-click-marker/modal-click-marker.service';
+import { Memory } from '../memory';
+import { MemoryService } from '../memory/memory.service';
+
 @Component({
     selector: 'jhi-map',
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, OnDestroy {
-maps: Map[];
+    maps: Map[];
+    memories:Map[];
     currentAccount: any;
     eventSubscriber: Subscription;
     lat:number = 51.678418;
     lng:number = 7.809007;
     zoom:number = 8;
-    titre:string;
-    description:string;
     modalRef: NgbModalRef;
     constructor(
+        private memoryS:MemoryService,
         private modalClickMarker:ClickMarkerModalService,
         private mapService: MapService,
         private jhiAlertService: JhiAlertService,
@@ -40,8 +43,17 @@ maps: Map[];
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
+    loadMemories() {
+        this.memoryS.query().subscribe(
+            (res: HttpResponse<Memory[]>) => {
+                this.memories = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
     ngOnInit() {
         this.loadAll();
+        this.loadMemories();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
@@ -62,17 +74,19 @@ maps: Map[];
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
-    clickedMarker(label: string, index: number) {
-     this.modalRef = this.modalClickMarker.open();
+  
+    clickedMarker(titre: string, description: string) {
+     this.modalRef = this.modalClickMarker.open(titre, description);
   }
   
   mapClicked($event: MouseEvent) {
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
+      label:'label'
       draggable: true,
-      titre:'titre'+this.markers.length,
-      description:'description'+this.markers.length
+      titre:'titre'+ this.markers.length,
+      description:'description'+ this.markers.length
     });
   }
   
@@ -111,7 +125,7 @@ maps: Map[];
 interface marker {
   lat: number;
   lng: number;
-  label?: string;
+  label: string;
   draggable: boolean;
   titre: string;
   description: string;
