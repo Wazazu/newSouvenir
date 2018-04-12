@@ -83,7 +83,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
-      label:'label',
+      label:'label'
       draggable: true,
       titre:'titre'+ this.markers.length,
       description:'description'+ this.markers.length
