@@ -27,7 +27,6 @@
             </thead>
             <tbody>
             <tr *ngFor="let memory of memories ;trackBy: trackId">
-                <td><a [routerLink]="['../memory', memory.id ]">{{memory.id}}</a></td>
                 <td>{{memory.title}}</td>
                 <td>{{memory.description}}</td>
                 <td>{{memory.startDate | date:'medium'}}</td>
