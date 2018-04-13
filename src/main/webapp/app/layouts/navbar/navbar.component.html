@@ -1,20 +1,21 @@
+<meta charset="UTF-8"/>
 <nav class="navbar navbar-dark navbar-expand-md jh-navbar">
     <div class="jh-logo-container float-left">
         <a class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
             <i class="fa fa-bars"></i>
         </a>
         <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
-            <span class="logo-img"></span>
-            <span class="navbar-title">Souvenir</span> <span class="navbar-version">{{version}}</span>
+            <!--  <span class="logo-img"></span>-->
+            <span class="navbar-title">Travel Diary</span> <span class="navbar-version">{{version}}</span>
         </a>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                <a class="nav-link" routerLink="memory" (click)="collapseNavbar()">
                     <span>
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                        <span>Home</span>
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                        <span>Mes Souvenirs</span>
                     </span>
                 </a>
             </li>
@@ -24,7 +25,7 @@
                     <span>
                         <i class="fa fa-th-list" aria-hidden="true"></i>
                         <span>
-                            Entities
+                            Menu
                         </span>
                     </span>
                 </a>
@@ -33,12 +34,6 @@
                         <a class="dropdown-item" routerLink="photo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span>Photo</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="memory" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
-                            <span>Memory</span>
                         </a>
                     </li>
                     <li>
@@ -108,7 +103,7 @@
                   <span *ngIf="!getImageUrl()">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span>
-                      Account
+                      Mon Compte
                     </span>
                   </span>
                   <span *ngIf="getImageUrl()">
@@ -119,31 +114,31 @@
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-wrench" aria-hidden="true"></i>
-                            <span>Settings</span>
+                            <span>Paramètres</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
-                            <span>Password</span>
+                            <span>Mot de passe</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" (click)="logout()" id="logout">
                             <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
-                            <span>Sign out</span>
+                            <span>Me déconnecter</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" (click)="login()" id="login">
                             <i class="fa fa-fw fa-sign-in" aria-hidden="true"></i>
-                            <span>Sign in</span>
+                            <span>Me connecter</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" routerLink="register" routerLinkActive="active" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
-                            <span>Register</span>
+                            <span>Créer un compte</span>
                         </a>
                     </li>
                 </ul>
