@@ -1,17 +1,29 @@
+<div class="form-group">
+        <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+      </div>
 <agm-map 
   [latitude]="lat"
   [longitude]="lng"
   [zoom]="zoom"
   [disableDefaultUI]="false"
-  [zoomControl]="false"
-  (mapClick)="mapClicked($event)">
-
+  [zoomControl]="true"
+  >
   <agm-marker 
-      *ngFor="let m of memories; let i = index"
-      (markerClick)="clickedMarker(m.title, m.description)"
+      *ngFor="let m of memories let i = index"
+      (markerClick)="clickedMarker(m.id, m.title, m.description)"
       [latitude]="m.latitude"
       [longitude]="m.longitude"
-      (dragEnd)="markerDragEnd(m, $event)">
+      [markerDraggable]="m.titre == null && m.description == null"
+      >
   </agm-marker>
+ 
   
 </agm-map>
+<br>
+<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]" *ngIf="newSouvenirDeleted" (click)="addMemory()">
+   <span> + </span>
+</button>
+
+<button type="button" class="btn btn-danger btn-number" data-type="minus" data-field="quant[2]" *ngIf="newSouvenirAdded" (click)="supprMemory()">
+  <span> - </span>
+</button>
