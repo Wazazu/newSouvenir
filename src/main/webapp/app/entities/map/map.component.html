@@ -14,7 +14,8 @@
       [latitude]="m.latitude"
       [longitude]="m.longitude"
       [markerDraggable]="m.titre == null && m.description == null"
-      >
+      (dragEnd)="memoryDragEnd(m, $event)">
+      
   </agm-marker>
  
   

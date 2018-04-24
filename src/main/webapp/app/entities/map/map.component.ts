@@ -125,7 +125,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this.jhiAlertService.error(error.message, null, null);
   }
   clickedMarker(id:number, titre: string, description: string) {
-    this.modalRef = this.modalClickMarker.open(id, titre, description);
+    this.modalRef = this.modalClickMarker.open(id, titre, description, this.lat, this.lng);
+  }
+  
+   memoryDragEnd(m: memory, $event: MouseEvent) {
+    m.latitude = $event.coords.lat;
+    m.longitude = $event.coords.lng;
+    this.lat = m.latitude;
+    this.lng = m.longitude;
   }
   
   addMemory(){

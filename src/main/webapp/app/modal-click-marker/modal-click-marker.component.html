@@ -9,9 +9,10 @@
 <div class="modal-body">
 	<h4 class="modal-title">{{description}}</h4>
 	<br>
-	<form class="form" role="form" (ngSubmit)="consulterSouvenir()">
+	<form class="form" role="form">
 		<div style="text-align: center">
 			<button type="submit" class="btn btn-info btn-sm"
+				(click)="consulterSouvenir()"
 				*ngIf="idMemory != null">
 				<span class="fa fa-eye"></span> <span class="d-none d-md-inline">Accéder
 					au souvenir</span>
@@ -19,7 +20,7 @@
 			<button 
 				*ngIf="idMemory == null"
 				class="btn btn-primary btn-sm"
-				[routerLink]="['/', { outlets: { popup: ['memory-new'] } }]">
+				(click)="creerSouvenir()">
                 <span class="fa fa-pencil"></span>
                 <span class="d-none d-md-inline">Créer un souvenir</span>
 			</button>

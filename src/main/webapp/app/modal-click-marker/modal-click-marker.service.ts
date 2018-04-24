@@ -10,7 +10,7 @@ export class ClickMarkerModalService {
         private modalService: NgbModal,
     ) {}
 
-    open(id:number, titre:string, description:string): NgbModalRef {
+    open(id:number, titre:string, description:string, lat:number, lng:number): NgbModalRef {
         if (this.isOpen) {
             return;
         }
@@ -36,8 +36,10 @@ export class ClickMarkerModalService {
         else{
            modalRef.componentInstance.description = "Description à définir";
         }
+ 
+        modalRef.componentInstance.lat = lat;
+        modalRef.componentInstance.lng = lng;
       
-        
         modalRef.result.then((result) => {
             this.isOpen = false;
         }, (reason) => {
