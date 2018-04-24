@@ -97,7 +97,7 @@ export class MemoryPopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-           this.memoryPopupService.setPos(params['lat'], params['lng'])
+           this.memoryPopupService.setPos(params['lng'], params['lat'])
             if ( params['id']) {
                 this.memoryPopupService
                     .open(MemoryDialogComponent as Component, params['id']);
