@@ -23,16 +23,24 @@ export const memoryRoute: Routes = [
             pageTitle: 'Memories'
         },
         canActivate: [UserRouteAccessService]
+    }, {
+        path: 'memory-new/:lat/:lng',
+        component: MemoryDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'Memories'
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
 
 export const memoryPopupRoute: Routes = [
     {
-        path: 'memory-new',
+        path: 'memory-new/:lat/:lng',
         component: MemoryPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Memories'
+            pageTitle: 'Memories',
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

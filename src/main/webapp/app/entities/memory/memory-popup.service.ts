@@ -9,7 +9,9 @@ import { MemoryService } from './memory.service';
 @Injectable()
 export class MemoryPopupService {
     private ngbModalRef: NgbModalRef;
-
+    memory:Memory;
+    lng:number;
+    lat:number
     constructor(
         private datePipe: DatePipe,
         private modalService: NgbModal,
@@ -19,9 +21,15 @@ export class MemoryPopupService {
     ) {
         this.ngbModalRef = null;
     }
-
-    open(component: Component, id?: number | any): Promise<NgbModalRef> {
+    
+    setPos(lng:number, lat:number){
+      this.lat = lat;
+      this.lng = lng;
+    }
+    open(component: Component, id?: number | any, lng?:number | any, lat?:number | any): Promise<NgbModalRef> {
+        console.log("esfes " + lng);
         return new Promise<NgbModalRef>((resolve, reject) => {
+      
             const isOpen = this.ngbModalRef !== null;
             if (isOpen) {
                 resolve(this.ngbModalRef);
@@ -41,7 +49,13 @@ export class MemoryPopupService {
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.memoryModalRef(component, new Memory());
+               
+                    this.memory = new Memory();
+                    this.memory.latitude = this.lat;
+                    this.memory.longitude = this.lng;
+                    console.log("mem " + JSON.stringify(this.memory));
+                    this.ngbModalRef = this.memoryModalRef(component, this.memory);
+                  
                     resolve(this.ngbModalRef);
                 }, 0);
             }

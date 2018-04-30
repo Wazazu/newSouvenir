@@ -19,6 +19,7 @@ import {
     mapRoute,
     mapPopupRoute,
 } from './';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const ENTITY_STATES = [
     ...mapRoute,
@@ -32,10 +33,12 @@ const ENTITY_STATES = [
         BrowserModule,
         FormsModule,
         HttpClientModule,
+        ReactiveFormsModule,
         AgmCoreModule.forRoot({
       // please get your own API key here:
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
-      apiKey: 'AIzaSyA0GZAMJp02jJ-Gir282oB_mV38SP_U3WI'
+      apiKey: 'AIzaSyA0GZAMJp02jJ-Gir282oB_mV38SP_U3WI',
+      libraries: ["places"]
     })
     ],
     declarations: [

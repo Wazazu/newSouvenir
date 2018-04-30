@@ -11,6 +11,7 @@ import { MemoryPopupService } from './memory-popup.service';
 import { MemoryService } from './memory.service';
 import { User, UserService } from '../../shared';
 
+import { Subscription } from 'rxjs/Subscription';
 @Component({
     selector: 'jhi-memory-dialog',
     templateUrl: './memory-dialog.component.html'
@@ -19,7 +20,9 @@ export class MemoryDialogComponent implements OnInit {
 
     memory: Memory;
     isSaving: boolean;
-
+    lat:number;
+    lng:number;
+ 
     users: User[];
 
     constructor(
@@ -27,7 +30,7 @@ export class MemoryDialogComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private memoryService: MemoryService,
         private userService: UserService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
     ) {
     }
 
@@ -35,6 +38,7 @@ export class MemoryDialogComponent implements OnInit {
         this.isSaving = false;
         this.userService.query()
             .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+      
     }
 
     clear() {
@@ -83,6 +87,8 @@ export class MemoryDialogComponent implements OnInit {
 export class MemoryPopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
+    lat:number;
+    lng:number;
 
     constructor(
         private route: ActivatedRoute,
@@ -91,10 +97,11 @@ export class MemoryPopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+           this.memoryPopupService.setPos(params['lng'], params['lat'])
+            if ( params['id']) {
                 this.memoryPopupService
                     .open(MemoryDialogComponent as Component, params['id']);
-            } else {
+            }else {
                 this.memoryPopupService
                     .open(MemoryDialogComponent as Component);
             }
