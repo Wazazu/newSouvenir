@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 import { SouvenirSharedModule } from '../../shared';
 import {
     PhotoService,
@@ -23,6 +23,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         SouvenirSharedModule,
+        HttpClientModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

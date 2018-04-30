@@ -19,8 +19,8 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_path">Path</label>
-            <input type="text" class="form-control" name="path" id="field_path"
-                [(ngModel)]="photo.path" />
+            <input type="file" class="form-control" name="path" id="field_path" 
+               [ngModel]="photo.path" (change)="fileChange($event)"/>
         </div>
 
     </div>

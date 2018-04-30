@@ -1,34 +1,44 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {SERVER_API_URL} from '../../app.constants';
 
-import { Photo } from './photo.model';
-import { createRequestOption } from '../../shared';
+import {Photo} from './photo.model';
+import {createRequestOption} from '../../shared';
+import {HttpParams} from '@angular/common/http';
+import {RequestOptions} from 'http';
 
 export type EntityResponseType = HttpResponse<Photo>;
 
 @Injectable()
 export class PhotoService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/photos';
+    private resourceUrl = SERVER_API_URL + 'api/photos';
 
     constructor(private http: HttpClient) { }
 
-    create(photo: Photo): Observable<EntityResponseType> {
-        const copy = this.convert(photo);
-        return this.http.post<Photo>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    create(photo: Photo): Observable<HttpResponse<any>> { 
+        let formData: FormData = new FormData();
+        if (photo.id != null)
+            formData.append('id', String(photo.id));
+        formData.append('description', photo.description);
+        formData.append('file', photo.path, photo.path.name);
+       
+        return this.http.post<any>(this.resourceUrl, formData, { observe: 'response' });
     }
 
-    update(photo: Photo): Observable<EntityResponseType> {
-        const copy = this.convert(photo);
-        return this.http.put<Photo>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
+    update(photo: Photo):  Observable<HttpResponse<any>> {
+        let formData: FormData = new FormData();
+        formData.append('id', String(photo.id));
+        formData.append('description', photo.description);
+        formData.append('file', photo.path, photo.path.name);
+      
+        return this.http.put<any>(this.resourceUrl, formData, { observe: 'response' });
+           
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Photo>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Photo>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -39,12 +49,13 @@ export class PhotoService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Photo = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        console.log("hello");
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<Photo[]>): HttpResponse<Photo[]> {
@@ -53,7 +64,7 @@ export class PhotoService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -69,6 +80,14 @@ export class PhotoService {
      */
     private convert(photo: Photo): Photo {
         const copy: Photo = Object.assign({}, photo);
+        console.log("convert " + copy.path.name);
         return copy;
     }
+
+    private convertWithFormData(photo: Photo, formData: FormData): Object {
+        const copy: Object = Object.assign({}, photo, formData);
+        return copy;
+    }
+
+
 }
