@@ -33,7 +33,7 @@
             {{memory.user?.login}}
         </dd>
     </dl>
-
+	<ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery><br>
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">

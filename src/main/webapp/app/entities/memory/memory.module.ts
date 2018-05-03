@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { NgxGalleryModule } from 'ngx-gallery';
 import { SouvenirSharedModule } from '../../shared';
 import { SouvenirAdminModule } from '../../admin/admin.module';
 import {
@@ -23,6 +23,7 @@ const ENTITY_STATES = [
 
 @NgModule({
     imports: [
+        NgxGalleryModule,
         SouvenirSharedModule,
         SouvenirAdminModule,
         RouterModule.forChild(ENTITY_STATES)
